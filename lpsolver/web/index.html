@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GPU LP Solver</title>
+  <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+  <main>
+    <header>
+      <div class="topline"><p class="eyebrow">LOCAL OPTIMIZATION TOOL</p><span class="local-chip"><i></i> Local and private</span></div>
+      <h1>GPU LP <span>Solver</span></h1>
+      <p class="intro">Upload a continuous MPS model, choose a backend, and review the objective and decision variables.</p>
+    </header>
+
+    <section class="workspace" aria-label="Solver controls">
+      <div class="control-panel">
+          <p class="section-label">MODEL INPUT</p>
+          <label class="file-drop" for="model-file">
+          <input id="model-file" type="file" accept=".mps,text/plain">
+          <span class="file-icon">↑</span>
+          <strong id="file-label">Choose an MPS file</strong>
+          <small>Continuous LP format, maximum 10 MB</small>
+          </label>
+          <button id="sample-button" class="sample-button" type="button">Run included sample</button>
+          <p class="server-note">Open this app at <strong>http://127.0.0.1:8000</strong>. Do not open <code>index.html</code> directly.</p>
+
+          <fieldset>
+          <legend>Solver backend</legend>
+          <label class="choice"><input type="radio" name="backend" value="highs" checked><span><strong>CPU HiGHS</strong><small>Accurate reference result. Recommended for small and medium models.</small></span></label>
+          <label class="choice"><input type="radio" name="backend" value="gpu"><span><strong>GPU CuPy PDHG</strong><small>Iterative GPU path for large sparse models. Returns an approximate result.</small></span></label>
+        </fieldset>
+
+        <label class="iterations">GPU maximum iterations
+          <input id="iterations" type="number" value="50000" min="100" max="1000000" step="100">
+        </label>
+        <button id="solve-button" type="button">Solve model</button>
+        <p id="status" role="status">Select a model to begin.</p>
+      </div>
+
+      <div class="results-panel">
+        <div class="empty" id="empty-state">
+          <div class="empty-mark">Σ</div>
+          <h2>Results appear here</h2>
+          <p>Run a model to see its status, objective, timing, and decision-variable values.</p>
+        </div>
+        <div id="results" hidden>
+          <div class="result-heading"><div><p class="eyebrow">MODEL RESULT</p><h2 id="model-name"></h2></div><span id="result-status" class="status-badge"></span></div>
+          <div class="metrics">
+            <div><span>Objective</span><strong id="objective">—</strong></div>
+            <div><span>Elapsed time</span><strong id="elapsed">—</strong></div>
+            <div><span>Model size</span><strong id="model-size">—</strong></div>
+          </div>
+          <div id="gpu-details" class="gpu-details" hidden></div>
+          <h3>Decision variables</h3>
+          <div class="table-wrap"><table><thead><tr><th>Variable</th><th>Value</th></tr></thead><tbody id="variables"></tbody></table></div>
+        </div>
+      </div>
+    </section>
+    <p class="footnote">The browser communicates only with the local server at 127.0.0.1. Uploaded model text is processed in memory and not stored.</p>
+  </main>
+  <script src="app.js?v=2"></script>
+</body>
+</html>
