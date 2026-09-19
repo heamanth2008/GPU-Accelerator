@@ -1,7 +1,0 @@
-numpy
-scipy
-fastapi
-uvicorn[standard]
-python-multipart
-websockets
-pandas
