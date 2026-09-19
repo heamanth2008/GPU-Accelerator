@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — Neuro Music</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base:      #080810;
+            --bg-card:      #16162a;
+            --accent:       #a855f7;
+            --accent-hover: #c084fc;
+            --text:         #f1f0ff;
+            --text-muted:   #9b98b8;
+            --border:       rgba(255,255,255,0.08);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg-base);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        /* Background decorative elements */
+        .glow-1 { position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 60%); pointer-events: none; }
+        .glow-2 { position: absolute; bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 60%); pointer-events: none; }
+        
+        .login-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 48px 40px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+        }
+        .logo-icon {
+            width: 56px; height: 56px;
+            background: linear-gradient(135deg, var(--accent), #7c3aed);
+            border-radius: 14px;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 8px 32px rgba(168,85,247,0.4);
+            margin-bottom: 24px;
+        }
+        h1 { font-size: 28px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 8px; }
+        p { color: var(--text-muted); font-size: 15px; margin-bottom: 32px; line-height: 1.5; }
+        
+        form { display: flex; flex-direction: column; gap: 16px; text-align: left; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; }
+        label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+        input {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            padding: 14px 16px;
+            border-radius: 12px;
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(168,85,247,0.2); background: rgba(0,0,0,0.4); }
+        
+        button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+            box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+            font-family: inherit;
+        }
+        button:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(168,85,247,0.4); }
+        button:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <div class="login-box">
+        <div class="logo-icon">🎵</div>
+        <h1>Neuro Music</h1>
+        <p>Log in to search and stream millions of tracks directly from YouTube.</p>
+
+        <form id="login-form">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your name" required autocomplete="username">
+            </div>
+            <button type="submit">Start Listening</button>
+        </form>
+    </div>
+
+    <script>
+        // Check if already logged in
+        if (localStorage.getItem('neuro_user')) {
+            window.location.href = '/';
+        }
+
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            if (username) {
+                localStorage.setItem('neuro_user', username);
+                window.location.href = '/';
+            }
+        });
+    </script>
+</body>
+</html>

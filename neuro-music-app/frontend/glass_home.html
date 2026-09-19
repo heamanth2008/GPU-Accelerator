@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neuro Music – Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="backdrop"></div>
+  <div class="stage">
+    <!-- Header -->
+    <div class="topbar">
+      <div class="greet">
+        <div class="hi">Good evening</div>
+        <h1>Hemanth</h1>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="searchToggle" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle-btn" aria-label="Toggle theme" onclick="toggleTheme()"><i data-lucide="sun"></i></button>
+        <div class="avatar">H</div>
+      </div>
+    </div>
+
+    <!-- Search Panel -->
+    <div class="search-panel" id="searchPanel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      Search songs, artists, playlists
+    </div>
+
+    <!-- Mode Switch -->
+    <div class="modeswitch">
+      <div class="mode active" data-view="discover">Discover</div>
+      <div class="mode" data-view="library">Your Library</div>
+    </div>
+
+    <!-- Discover View -->
+    <div class="view active" id="view-discover">
+      <div class="featured">
+        <div class="tag">✨ Featured Mix</div>
+        <h2>NCS Releases</h2>
+        <p>By YouTube Music · 2024</p>
+        <button class="play-pill">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Play Now
+        </button>
+      </div>
+      <div class="section">
+        <div class="section-head"><h3>Pick Up Where You Left Off</h3><span class="see-all">See all</span></div>
+        <div class="rail">
+          <div class="card"><div class="art" style="--c1:#8f7bff; --c2:#d9c9ff;"></div><div class="t">Beautiful Now</div><div class="a">Zedd &amp; Marshmello</div></div>
+          <div class="card"><div class="art" style="--c1:#54e0c7; --c2:#8f7bff;"></div><div class="t">True Colors</div><div class="a">Zedd &amp; Marshmello</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Library View -->
+    <div class="view" id="view-library">
+      <div class="liked-row" onclick="navigateToLiked()">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+        <div class="meta"><div class="t">Liked Songs</div><div class="a">128 songs</div></div>
+      </div>
+      <div class="section">
+        <div class="section-head"><h3>Your Playlists</h3><span class="see-all">See all</span></div>
+        <div class="panel">
+          <div class="row" style="--c1:#54e0c7; --c2:#5f7bd9;"><div class="cover"></div><div class="meta"><div class="t">Late Night Focus</div><div class="a">Auto Playlist</div></div><div class="count">42</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Dock -->
+    <div class="dock">
+      <button class="dock-item active" onclick="switchMode('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></button>
+      <button class="dock-item" onclick="switchMode('library')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><span>Library</span></button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function switchMode(view){
+      document.querySelectorAll('.mode').forEach(m=>{ m.classList.toggle('active', m.dataset.view===view); });
+      document.querySelectorAll('.view').forEach(v=>{ v.classList.toggle('active', v.id===`view-${view}`); });
+    }
+    function navigateToLiked(){ /* placeholder */ }
+    if('serviceWorker' in navigator){ navigator.serviceWorker.register('service-worker.js'); }
+  </script>
+</body>
+</html>
